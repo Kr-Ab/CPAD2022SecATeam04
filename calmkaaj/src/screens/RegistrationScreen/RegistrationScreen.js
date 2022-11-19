@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { firebase } from '../../firebase/config'
+
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
+
+
+import { app } from '../../firebase/config'
+
 import styles from './styles';
 
 export default function RegistrationScreen({navigation}) {
@@ -20,29 +27,33 @@ export default function RegistrationScreen({navigation}) {
             return
         }
 
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid
-                const data = {
-                    id: uid,
-                    email,
-                    fullName,
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        navigation.navigate('Home', {user: data})
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
+        const auth = getAuth();
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            const uid = user.uid
+            const data = {
+                uid: user.uid,
+                email: email,
+                fullName: fullName,
+            }
+
+            const db = getFirestore(app);
+            const docRef =  setDoc(doc(db, "users", uid), data).then(() => {
+                console.log("Document written with ID: ", docRef.id);
+                navigation.navigate('Home', {user: data})
+            }).catch((error) => {
+                console.error("Error adding document: ", error);
                 alert(error)
+            });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage)
+            alert(error)
+            // ..
         });
     }
 

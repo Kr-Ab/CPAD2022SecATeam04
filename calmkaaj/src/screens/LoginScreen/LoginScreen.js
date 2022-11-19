@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+
+
+import { app } from '../../firebase/config'
+
 import styles from './styles';
 
 export default function LoginScreen({navigation}) {
@@ -12,6 +19,34 @@ export default function LoginScreen({navigation}) {
     }
 
     const onLoginPress = () => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                const uid = user.uid
+
+                const db = getFirestore(app);
+                getDoc(doc(db, "users", uid))
+                .then(firestoreDocument => {
+                    if (!firestoreDocument.exists) {
+                        alert("User does not exist anymore.")
+                        return;
+                    }
+                    const user = firestoreDocument.data()
+                    console.log(user)
+                    navigation.navigate('Home', {user})
+                })
+                .catch(error => {
+                    alert(error)
+                });
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                alert(error)
+            });
     }
 
     return (
