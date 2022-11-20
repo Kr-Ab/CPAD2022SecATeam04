@@ -53,7 +53,6 @@ export default function RegistrationScreen({navigation}) {
             const errorMessage = error.message;
             console.log(errorMessage)
             alert(error)
-            // ..
         });
     }
 
