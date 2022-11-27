@@ -1,4 +1,4 @@
-package com.calmkaaj;
+package com.kalmkaaj.calmkaaj;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.calmkaaj",
+    package = "com.kalmkaaj.calmkaaj",
 )
 
 android_resource(
     name = "res",
-    package = "com.calmkaaj",
+    package = "com.kalmkaaj.calmkaaj",
     res = "src/main/res",
 )
 

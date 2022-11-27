@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "610886258731-06avljose7hchs48uc07dlcov69e3it3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kalmkaaj.calmkaaj",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "610886258731-hae7nfbp4ipf7vdnmhndafc7fn9uej3p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "610886258731-2qa9c3j01dvfno2k9qao2im4tlgn3229.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kalmkaaj.calmkaaj"
+              }
             }
           ]
         }

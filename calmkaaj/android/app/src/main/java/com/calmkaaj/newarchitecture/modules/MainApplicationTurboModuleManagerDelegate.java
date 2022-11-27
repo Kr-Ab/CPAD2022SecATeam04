@@ -1,4 +1,4 @@
-package com.calmkaaj.newarchitecture.modules;
+package com.kalmkaaj.calmkaaj.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

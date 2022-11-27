@@ -1,4 +1,4 @@
-package com.calmkaaj.newarchitecture;
+package com.kalmkaaj.calmkaaj.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.calmkaaj.BuildConfig;
-import com.calmkaaj.newarchitecture.components.MainComponentsRegistry;
-import com.calmkaaj.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.kalmkaaj.calmkaaj.BuildConfig;
+import com.kalmkaaj.calmkaaj.newarchitecture.components.MainComponentsRegistry;
+import com.kalmkaaj.calmkaaj.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
