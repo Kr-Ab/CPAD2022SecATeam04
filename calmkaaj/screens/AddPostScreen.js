@@ -25,7 +25,7 @@ import {
 
 import { AuthContext } from '../navigation/AuthProvider';
 
-const AddPostScreen = () => {
+const AddPostScreen = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
 
   const [image, setImage] = useState(null);
@@ -39,7 +39,7 @@ const AddPostScreen = () => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      console.log(image);
+      // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -51,7 +51,7 @@ const AddPostScreen = () => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      console.log(image);
+      // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -59,8 +59,8 @@ const AddPostScreen = () => {
 
   const submitPost = async () => {
     const imageUrl = await uploadImage();
-    console.log('Image Url: ', imageUrl);
-    console.log('Post: ', post);
+    // console.log('Image Url: ', imageUrl);
+    // console.log('Post: ', post);
 
     firestore()
     .collection('posts')
@@ -69,20 +69,20 @@ const AddPostScreen = () => {
       post: post,
       postImg: imageUrl,
       postTime: firestore.Timestamp.fromDate(new Date()),
-      likes: null,
-      comments: null,
     })
     .then(() => {
       console.log('Post Added!');
-      Alert.alert(
-        'Post published!',
-        'Your post has been published Successfully!',
-      );
+      // Alert.alert(
+      //   'Post published!',
+      //   'Your post has been published Successfully!',
+      // );
       setPost(null);
     })
     .catch((error) => {
       console.log('Something went wrong with added post to firestore.', error);
     });
+
+    navigation.navigate("HomeScreen")
   }
 
   const uploadImage = async () => {

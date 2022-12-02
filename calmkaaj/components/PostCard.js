@@ -17,36 +17,25 @@ import {
   Divider,
 } from '../styles/FeedStyles';
 
+import { Alert } from 'react-native';
+
 import ProgressiveImage from './ProgressiveImage';
 
 import {AuthContext} from '../navigation/AuthProvider';
 
 import moment from 'moment';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const PostCard = ({item, onDelete, onPress}) => {
-  const {user, logout} = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
+  const [currentUser, setcurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
 
-  likeIcon = item.liked ? 'heart' : 'heart-outline';
-  likeIconColor = item.liked ? '#2e64e5' : '#333';
-
-  if (item.likes == 1) {
-    likeText = '1 Like';
-  } else if (item.likes > 1) {
-    likeText = item.likes + ' Likes';
-  } else {
-    likeText = 'Like';
-  }
-
-  if (item.comments == 1) {
-    commentText = '1 Comment';
-  } else if (item.comments > 1) {
-    commentText = item.comments + ' Comments';
-  } else {
-    commentText = 'Comment';
-  }
+  let likeIcon = item.liked ? 'heart' : 'heart-outline';
+  let likeIconColor = item.liked ? '#2e64e5' : '#333';
 
   const getUser = async () => {
     await firestore()
@@ -55,10 +44,45 @@ const PostCard = ({item, onDelete, onPress}) => {
       .get()
       .then((documentSnapshot) => {
         if (documentSnapshot.exists) {
-          console.log('User Data', documentSnapshot.data());
+          // console.log('User Data', documentSnapshot.data());
           setUserData(documentSnapshot.data());
         }
       });
+  };
+
+  const getCurrentUser = async () => {
+    await firestore()
+      .collection('users')
+      .doc(user.uid)
+      .get()
+      .then((documentSnapshot) => {
+        console.log(documentSnapshot)
+        if (documentSnapshot.exists) {
+          setcurrentUser(documentSnapshot.data());
+        }
+      });
+  }
+
+  const onReach = async () => {
+    await getCurrentUser()
+    console.log("==========")
+    console.log(currentUser)
+    let message = `Hey ${item.userName},\nI am interested in your post titled "${item.post}".\n Please contact me at ${currentUser.phone != null ? currentUser.phone : currentUser.email}.`
+    firestore()
+    .collection('messages')
+    .add({
+      userId: user.uid,
+      userName: currentUser.fname + currentUser.lname,
+      userImg: currentUser.userImg,
+      messageTime: firestore.Timestamp.fromDate(new Date()),
+      postUserId: item.userId,
+      messageText: message,
+    }).then(() => {
+      Alert.alert("User Contacted");
+    }).catch( err => {
+      console.log(err)
+      Alert.alert("Unable to contact the person");
+    })
   };
 
   useEffect(() => {
@@ -99,17 +123,22 @@ const PostCard = ({item, onDelete, onPress}) => {
         <Divider />
       )}
 
-      <InteractionWrapper>
-        <Interaction active={item.liked}>
-          <Ionicons name={likeIcon} size={25} color={likeIconColor} />
-          <InteractionText active={item.liked}>{likeText}</InteractionText>
-        </Interaction>
-        {user.uid == item.userId ? (
-          <Interaction onPress={() => onDelete(item.id)}>
-            <Ionicons name="md-trash-bin" size={25} />
-          </Interaction>
+        {item.showinteractions == null ? (
+          <InteractionWrapper>
+          {user.uid != item.userId ? (
+                <Interaction active={false} onPress={() => onReach()}>
+                <Ionicons name='chatbox-ellipses-outline' size={25} color='#333' />
+                <InteractionText active={false}>Reach</InteractionText>
+              </Interaction>
+              ) : null}
+              {user.uid == item.userId ? (
+                <Interaction onPress={() => onDelete(item.id)}>
+                  <Ionicons name="md-trash-bin" size={25} />
+                  <InteractionText>Delete</InteractionText>
+                </Interaction>
+              ) : null}
+          </InteractionWrapper>
         ) : null}
-      </InteractionWrapper>
     </Card>
   );
 };

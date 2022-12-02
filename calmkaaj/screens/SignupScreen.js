@@ -62,7 +62,7 @@ const SignupScreen = ({navigation}) => {
         </Text>
       </View>
 
-      {Platform.OS === 'android' ? (
+      {/* {Platform.OS === 'android' ? (
         <View>
           <SocialButton
             buttonTitle="Sign Up with Google"
@@ -72,7 +72,7 @@ const SignupScreen = ({navigation}) => {
             onPress={() => {}}
           />
         </View>
-      ) : null}
+      ) : null} */}
 
       <TouchableOpacity
         style={styles.navButton}

@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator();
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
-      name="CalmKaaj"
+      name="Home"
       component={HomeScreen}
       options={{
         headerTitleAlign: 'center',
@@ -88,15 +88,15 @@ const FeedStack = ({navigation}) => (
 
 const MessageStack = ({navigation}) => (
   <Stack.Navigator>
-    <Stack.Screen name="Messages" component={MessagesScreen} />
-    <Stack.Screen
+    <Stack.Screen name={"\n"} component={MessagesScreen} />
+    {/* <Stack.Screen
       name="Chat"
       component={ChatScreen}
       options={({route}) => ({
         title: route.params.userName,
         headerBackTitleVisible: false,
       })}
-    />
+    /> */}
   </Stack.Navigator>
 );
 
@@ -144,7 +144,7 @@ const AppStack = () => {
         activeTintColor: '#2e64e5',
     }}>
       <Tab.Screen
-        name="Home"
+        name="CalmKaaj"
         component={FeedStack}
         options={({route}) => ({
           tabBarLabel: 'Home',

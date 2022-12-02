@@ -7,7 +7,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-  console.log(user)
   return (
     <AuthContext.Provider
       value={{
@@ -32,23 +31,26 @@ export const AuthProvider = ({children}) => {
             await auth().signInWithCredential(googleCredential)
             // Use it only when user Sign's up, 
             // so create different social signup function
-            // .then(() => {
-            //   //Once the user creation has happened successfully, we can add the currentUser into firestore
-            //   //with the appropriate details.
-            //   console.log('current User', auth().currentUser);
-            //   firestore().collection('users').doc(auth().currentUser.uid)
-            //   .set({
-            //       fname: '',
-            //       lname: '',
-            //       email: auth().currentUser.email,
-            //       createdAt: firestore.Timestamp.fromDate(new Date()),
-            //       userImg: null,
-            //   })
-            //   //ensure we catch any errors at this stage to advise us if something does go wrong
-            //   .catch(error => {
-            //       console.log('Something went wrong with added user to firestore: ', error);
-            //   })
-            // })
+            .then(() => {
+              //Once the user creation has happened successfully, we can add the currentUser into firestore
+              //with the appropriate details.
+              // console.log('current User', auth().currentUser);
+              if (firestore().collection('users').doc(auth().currentUser.uid).get() == null){
+                firestore().collection('users').doc(auth().currentUser.uid)
+                .set({
+                    fname: auth().currentUser.displayName.split(" ")[0],
+                    lname: auth().currentUser.displayName.split(" ")[1],
+                    email: auth().currentUser.email,
+                    createdAt: firestore.Timestamp.fromDate(new Date()),
+                    phoneNumber: auth().currentUser.phoneNumber,
+                    userImg: auth().currentUser.photoURL,
+                })
+                //ensure we catch any errors at this stage to advise us if something does go wrong
+                .catch(error => {
+                    console.log('Something went wrong with added user to firestore: ', error);
+                })
+              }
+            })
             //we need to catch the whole sign up process if it fails too.
             .catch(error => {
                 console.log('Something went wrong with sign up: ', error);

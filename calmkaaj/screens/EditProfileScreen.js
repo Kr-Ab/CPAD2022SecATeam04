@@ -37,7 +37,7 @@ const EditProfileScreen = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
+        // console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -58,8 +58,6 @@ const EditProfileScreen = () => {
       lname: userData.lname,
       about: userData.about,
       phone: userData.phone,
-      country: userData.country,
-      city: userData.city,
       userImg: imgUrl,
     })
     .then(() => {
@@ -133,7 +131,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
+      // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -147,7 +145,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      console.log(image);
+      // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -300,33 +298,6 @@ const EditProfileScreen = () => {
             autoCorrect={false}
             value={userData ? userData.phone : ''}
             onChangeText={(txt) => setUserData({...userData, phone: txt})}
-            style={styles.textInput}
-          />
-        </View>
-
-        <View style={styles.action}>
-          <FontAwesome name="globe" color="#333333" size={20} />
-          <TextInput
-            placeholder="Country"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={userData ? userData.country : ''}
-            onChangeText={(txt) => setUserData({...userData, country: txt})}
-            style={styles.textInput}
-          />
-        </View>
-        <View style={styles.action}>
-          <MaterialCommunityIcons
-            name="map-marker-outline"
-            color="#333333"
-            size={20}
-          />
-          <TextInput
-            placeholder="City"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            value={userData ? userData.city : ''}
-            onChangeText={(txt) => setUserData({...userData, city: txt})}
             style={styles.textInput}
           />
         </View>
