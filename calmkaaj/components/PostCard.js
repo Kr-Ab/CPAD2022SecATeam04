@@ -64,24 +64,27 @@ const PostCard = ({item, onDelete, onPress}) => {
   }
 
   const onReach = async () => {
-    await getCurrentUser()
-    console.log("==========")
-    console.log(currentUser)
-    let message = `Hey ${item.userName},\nI am interested in your post titled "${item.post}".\n Please contact me at ${currentUser.phone != null ? currentUser.phone : currentUser.email}.`
-    firestore()
-    .collection('messages')
-    .add({
-      userId: user.uid,
-      userName: currentUser.fname + currentUser.lname,
-      userImg: currentUser.userImg,
-      messageTime: firestore.Timestamp.fromDate(new Date()),
-      postUserId: item.userId,
-      messageText: message,
-    }).then(() => {
-      Alert.alert("User Contacted");
+    await getCurrentUser().then( () => {
+      console.log("==========")
+      console.log(currentUser)
+      let message = `Hey ${item.userName},\nI am interested in your post titled "${item.post}".\nPlease contact me at ${currentUser.phone != null ? currentUser.phone : currentUser.email}.`
+      firestore()
+      .collection('messages')
+      .add({
+        userId: user.uid,
+        userName: currentUser.fname + currentUser.lname,
+        userImg: currentUser.userImg,
+        messageTime: firestore.Timestamp.fromDate(new Date()),
+        postUserId: item.userId,
+        messageText: message,
+      }).then(() => {
+        Alert.alert("User Contacted");
+      }).catch( err => {
+        console.log(err)
+        Alert.alert("Unable to contact the person");
+      })
     }).catch( err => {
-      console.log(err)
-      Alert.alert("Unable to contact the person");
+      Alert.alert("Unable to reach user.\n Please try again!")
     })
   };
 

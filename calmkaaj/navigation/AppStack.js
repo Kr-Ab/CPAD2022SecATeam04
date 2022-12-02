@@ -33,7 +33,7 @@ const FeedStack = ({navigation}) => (
           elevation: 0,
         },
         headerRight: () => (
-          <View style={{marginRight: 10}}>
+          <View style={{marginRight: 0}}>
             <FontAwesome5.Button
               name="plus"
               size={22}
@@ -144,10 +144,10 @@ const AppStack = () => {
         activeTintColor: '#2e64e5',
     }}>
       <Tab.Screen
-        name="CalmKaaj"
+        name="Calmकाज"
         component={FeedStack}
         options={({route}) => ({
-          tabBarLabel: 'Home',
+          // tabBarLabel: '',
           // tabBarVisible: route.state && route.state.index === 0,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons

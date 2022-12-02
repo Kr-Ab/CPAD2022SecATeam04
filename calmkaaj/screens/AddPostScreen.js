@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import HomeScreen from './HomeScreen';
 
 import {
   InputField,
@@ -81,8 +82,6 @@ const AddPostScreen = ({navigation}) => {
     .catch((error) => {
       console.log('Something went wrong with added post to firestore.', error);
     });
-
-    navigation.navigate("HomeScreen")
   }
 
   const uploadImage = async () => {
