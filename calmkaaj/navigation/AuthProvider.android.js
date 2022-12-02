@@ -34,7 +34,7 @@ export const AuthProvider = ({children}) => {
             .then(() => {
               //Once the user creation has happened successfully, we can add the currentUser into firestore
               //with the appropriate details.
-              // console.log('current User', auth().currentUser);
+              // // console.log('current User', auth().currentUser);
               if (firestore().collection('users').doc(auth().currentUser.uid).get() == null){
                 firestore().collection('users').doc(auth().currentUser.uid)
                 .set({

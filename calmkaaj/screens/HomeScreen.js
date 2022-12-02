@@ -33,7 +33,7 @@ const HomeScreen = ({navigation}) => {
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
-          // console.log('Total Posts: ', querySnapshot.size);
+          // // console.log('Total Posts: ', querySnapshot.size);
 
           querySnapshot.forEach((doc) => {
             const {
@@ -55,13 +55,13 @@ const HomeScreen = ({navigation}) => {
           });
         });
 
-      console.log(list)
+      // console.log(list)
       setPosts(list);
 
       if (loading) {
         setLoading(false);
       }
-      // console.log('Posts: ', posts);
+      // // console.log('Posts: ', posts);
     } catch (e) {
       console.log(e);
     }
@@ -96,7 +96,7 @@ const HomeScreen = ({navigation}) => {
   };
 
   const deletePost = (postId) => {
-    // console.log('Current Post Id: ', postId);
+    // // console.log('Current Post Id: ', postId);
     firestore()
       .collection('posts')
       .doc(postId)

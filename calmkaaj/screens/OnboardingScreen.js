@@ -60,20 +60,14 @@ const OnboardingScreen = ({navigation}) => {
           {
             backgroundColor: '#a6e4d0',
             image: <Image source={require('../assets/Onboarding-1.png')} />,
-            title: 'Onboarding One',
-            subtitle: 'Onboarding One',
           },
           {
             backgroundColor: '#ffffff',
             image: <Image source={require('../assets/Onboarding-2.png')} />,
-            title: 'Onboarding Two',
-            subtitle: 'Onboarding Two',
           },
           {
             backgroundColor: '#e9bcbe',
             image: <Image source={require('../assets/Onboarding-3.png')} />,
-            title: 'Onboarding Three',
-            subtitle: "Onboarding Three",
           },
         ]}
       />

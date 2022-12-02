@@ -24,7 +24,7 @@ const MessagesScreen = ({navigation, route}) => {
         .orderBy('messageTime', 'desc')
         .get()
         .then((querySnapshot) => {
-          console.log('Total Messages: ', querySnapshot.size);
+          // // console.log('Total Messages: ', querySnapshot.size);
 
           querySnapshot.forEach((doc) => {
             const {
@@ -45,7 +45,6 @@ const MessagesScreen = ({navigation, route}) => {
             });
           });
         });
-        console.log(list)
       setMessages(list);
 
       if (loading) {

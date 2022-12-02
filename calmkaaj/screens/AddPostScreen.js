@@ -40,7 +40,7 @@ const AddPostScreen = ({navigation}) => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      // console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -52,7 +52,7 @@ const AddPostScreen = ({navigation}) => {
       height: 780,
       cropping: true,
     }).then((image) => {
-      // console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
     });
@@ -60,8 +60,8 @@ const AddPostScreen = ({navigation}) => {
 
   const submitPost = async () => {
     const imageUrl = await uploadImage();
-    // console.log('Image Url: ', imageUrl);
-    // console.log('Post: ', post);
+    // // console.log('Image Url: ', imageUrl);
+    // // console.log('Post: ', post);
 
     firestore()
     .collection('posts')

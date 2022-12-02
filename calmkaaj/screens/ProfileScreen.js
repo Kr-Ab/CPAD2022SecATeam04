@@ -33,7 +33,7 @@ const ProfileScreen = ({navigation, route}) => {
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
-          // console.log('Total Posts: ', querySnapshot.size);
+          // // console.log('Total Posts: ', querySnapshot.size);
 
           querySnapshot.forEach((doc) => {
             const {
@@ -66,7 +66,7 @@ const ProfileScreen = ({navigation, route}) => {
         setLoading(false);
       }
 
-      console.log('Posts: ', posts);
+      // console.log('Posts: ', posts);
     } catch (e) {
       console.log(e);
     }
@@ -79,7 +79,7 @@ const ProfileScreen = ({navigation, route}) => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        // console.log('User Data', documentSnapshot.data());
+        // // console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -111,7 +111,7 @@ const ProfileScreen = ({navigation, route}) => {
   };
 
   const deletePost = (postId) => {
-    // console.log('Current Post Id: ', postId);
+    // // console.log('Current Post Id: ', postId);
 
     firestore()
       .collection('posts')

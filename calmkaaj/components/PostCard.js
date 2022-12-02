@@ -56,7 +56,7 @@ const PostCard = ({item, onDelete, onPress}) => {
       .doc(user.uid)
       .get()
       .then((documentSnapshot) => {
-        console.log(documentSnapshot)
+        // console.log(documentSnapshot)
         if (documentSnapshot.exists) {
           setcurrentUser(documentSnapshot.data());
         }
@@ -65,14 +65,12 @@ const PostCard = ({item, onDelete, onPress}) => {
 
   const onReach = async () => {
     await getCurrentUser().then( () => {
-      console.log("==========")
-      console.log(currentUser)
-      let message = `Hey ${item.userName},\nI am interested in your post titled "${item.post}".\nPlease contact me at ${currentUser.phone != null ? currentUser.phone : currentUser.email}.`
+      let message = `Hey ${userData.fname + " " + userData.lname},\nI am ${currentUser.fname + " " + currentUser.lname} and I am interested in your post titled "${item.post}".\nPlease contact me at ${currentUser.phone != null ? currentUser.phone : currentUser.email}.`
       firestore()
       .collection('messages')
       .add({
         userId: user.uid,
-        userName: currentUser.fname + currentUser.lname,
+        userName: currentUser.fname + " " + currentUser.lname,
         userImg: currentUser.userImg,
         messageTime: firestore.Timestamp.fromDate(new Date()),
         postUserId: item.userId,
@@ -95,6 +93,11 @@ const PostCard = ({item, onDelete, onPress}) => {
   return (
     <Card key={item.id}>
       <UserInfo>
+      {item.showinteractions != null ? (
+        <UserImg
+          source={{uri: item.userImg}}
+        />
+      ) : (
         <UserImg
           source={{
             uri: userData
@@ -103,12 +106,19 @@ const PostCard = ({item, onDelete, onPress}) => {
               : 'https://lh5.googleusercontent.com/-b0PKyNuQv5s/AAAAAAAAAAI/AAAAAAAAAAA/AMZuuclxAM4M1SCBGAO7Rp-QP6zgBEUkOQ/s96-c/photo.jpg',
           }}
         />
+      )}
         <UserInfoText>
           <TouchableOpacity onPress={onPress}>
-            <UserName>
-              {userData ? userData.fname || 'Test' : 'Test'}{' '}
-              {userData ? userData.lname || 'User' : 'User'}
-            </UserName>
+            {item.showinteractions != null ? (
+              <UserName>
+                {item.userName}
+              </UserName>
+            ) : (
+              <UserName>
+                {userData ? userData.fname || 'Test' : 'Test'}{' '}
+                {userData ? userData.lname || 'User' : 'User'}
+              </UserName>
+            )}
           </TouchableOpacity>
           <PostTime>{moment(item.postTime.toDate()).fromNow()}</PostTime>
         </UserInfoText>

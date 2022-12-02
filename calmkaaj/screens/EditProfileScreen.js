@@ -37,7 +37,7 @@ const EditProfileScreen = () => {
     .get()
     .then((documentSnapshot) => {
       if( documentSnapshot.exists ) {
-        // console.log('User Data', documentSnapshot.data());
+        // // console.log('User Data', documentSnapshot.data());
         setUserData(documentSnapshot.data());
       }
     })
@@ -61,7 +61,7 @@ const EditProfileScreen = () => {
       userImg: imgUrl,
     })
     .then(() => {
-      console.log('User Updated!');
+      // console.log('User Updated!');
       Alert.alert(
         'Profile Updated!',
         'Your profile has been updated successfully.'
@@ -131,7 +131,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      // console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
@@ -145,7 +145,7 @@ const EditProfileScreen = () => {
       cropping: true,
       compressImageQuality: 0.7,
     }).then((image) => {
-      // console.log(image);
+      // // console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       this.bs.current.snapTo(1);
