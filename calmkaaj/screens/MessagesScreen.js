@@ -1,5 +1,5 @@
 import { React, useState, useEffect, useContext } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, Alert } from 'react-native';
 import {
   Container,
 } from '../styles/MessageStyles';
@@ -56,9 +56,43 @@ const MessagesScreen = ({navigation, route}) => {
     }
   };
 
+  const handleDelete = (postId) => {
+    Alert.alert(
+      'Delete post',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deleteMessage(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deleteMessage = (postId) => {
+    firestore()
+      .collection('messages')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert(
+          'Post deleted!',
+          'Your post has been deleted successfully!',
+        );
+        setDeleted(true);
+      })
+      .catch((e) => console.log('Error deleting posst.', e));
+  };
+
   useEffect(() => {
     fetchMessages();
-  }, []);
+  }, [messages]);
 
   return (
     <Container>
@@ -77,6 +111,7 @@ const MessagesScreen = ({navigation, route}) => {
               userName: item.userName,
               showinteractions: false
             }}
+            onDelete={handleDelete}
           />
         )}
       />

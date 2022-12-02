@@ -243,15 +243,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   userBtn: {
-    borderColor: '#2e64e5',
-    borderWidth: 2,
-    borderRadius: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginHorizontal: 5,
+    paddingHorizontal: 15,
+    margin: '1%',
+    backgroundColor: '#44a6c6',
+    borderRadius: 100
   },
   userBtnTxt: {
-    color: '#2e64e5',
+    color: '#fff',
   },
   userInfoWrapper: {
     flexDirection: 'row',

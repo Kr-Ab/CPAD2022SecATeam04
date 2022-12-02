@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 import Onboarding from 'react-native-onboarding-swiper';
 
@@ -59,19 +59,19 @@ const OnboardingScreen = ({navigation}) => {
         pages={[
           {
             backgroundColor: '#a6e4d0',
-            // image: <Image source={require('../assets/onboarding-img1.png')} />,
+            image: <Image source={require('../assets/Onboarding-1.png')} />,
             title: 'Onboarding One',
             subtitle: 'Onboarding One',
           },
           {
-            backgroundColor: '#fdeb93',
-            // image: <Image source={require('../assets/onboarding-img2.png')} />,
+            backgroundColor: '#ffffff',
+            image: <Image source={require('../assets/Onboarding-2.png')} />,
             title: 'Onboarding Two',
             subtitle: 'Onboarding Two',
           },
           {
             backgroundColor: '#e9bcbe',
-            // image: <Image source={require('../assets/onboarding-img3.png')} />,
+            image: <Image source={require('../assets/Onboarding-3.png')} />,
             title: 'Onboarding Three',
             subtitle: "Onboarding Three",
           },

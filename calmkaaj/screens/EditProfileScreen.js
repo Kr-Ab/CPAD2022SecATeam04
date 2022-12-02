@@ -301,7 +301,7 @@ const EditProfileScreen = () => {
             style={styles.textInput}
           />
         </View>
-        <FormButton buttonTitle="Update" onPress={handleUpdate} />
+        <FormButton buttonTitle="Update" onPress={handleUpdate} style={styles.panelButton} />
       </Animated.View>
     </View>
   );
@@ -358,11 +358,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   panelButton: {
-    padding: 13,
-    borderRadius: 10,
-    backgroundColor: '#2e64e5',
-    alignItems: 'center',
-    marginVertical: 7,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    margin: '1%',
+    backgroundColor: '#44a6c6',
+    borderRadius: 100
   },
   panelButtonTitle: {
     fontSize: 17,

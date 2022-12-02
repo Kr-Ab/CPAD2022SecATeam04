@@ -42,8 +42,16 @@ const SignupScreen = ({navigation}) => {
         secureTextEntry={true}
       />
 
-      <FormButton
+      {/* <FormButton
         buttonTitle="Sign Up"
+        onPress={() => register(email, password)}
+      /> */}
+
+      <SocialButton
+        buttonTitle="Sign Up"
+        btnType="sign-in"
+        color="#fff"
+        backgroundColor="#44a6c6"
         onPress={() => register(email, password)}
       />
 

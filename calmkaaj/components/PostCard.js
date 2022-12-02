@@ -126,22 +126,22 @@ const PostCard = ({item, onDelete, onPress}) => {
         <Divider />
       )}
 
-        {item.showinteractions == null ? (
-          <InteractionWrapper>
-          {user.uid != item.userId ? (
-                <Interaction active={false} onPress={() => onReach()}>
-                <Ionicons name='chatbox-ellipses-outline' size={25} color='#333' />
-                <InteractionText active={false}>Reach</InteractionText>
-              </Interaction>
-              ) : null}
-              {user.uid == item.userId ? (
-                <Interaction onPress={() => onDelete(item.id)}>
-                  <Ionicons name="md-trash-bin" size={25} />
-                  <InteractionText>Delete</InteractionText>
-                </Interaction>
-              ) : null}
-          </InteractionWrapper>
+      <InteractionWrapper>
+        {user.uid != item.userId ? (
+          <Interaction active={false} onPress={() => onReach()}>
+            <Ionicons name='chatbox-ellipses-outline' size={25} color='#fff' />
+            <InteractionText active={false}>Reach</InteractionText>
+          </Interaction>
         ) : null}
+        {user.uid == item.userId ? (
+          <Interaction onPress={() => onDelete(item.id)}>
+            <Ionicons name="md-trash-bin" size={25} color='#fff' />
+            <InteractionText>Delete</InteractionText>
+          </Interaction>
+        ) : null}
+        </InteractionWrapper>
+        {/* {item.showinteractions == null ? (
+        ) : null} */}
     </Card>
   );
 };
